@@ -1,1 +1,1 @@
-let a = 'ab';
+let a = 'a';
