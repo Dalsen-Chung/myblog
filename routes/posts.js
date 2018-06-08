@@ -5,7 +5,7 @@ const checkLogin = require('../middlewares/check').checkLogin
 
 //  GET /posts 所有用户或者特定用户的文章页
 router.get('/', function (req, res, next) {
-  res.send('主页')
+  res.render('post')
 })
 
 //  POST  /posts/create  发表一篇文章
