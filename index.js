@@ -6,7 +6,7 @@ const flash = require('connect-flash')
 const config = require('config-lite')(__dirname)
 const routes = require('./routes')
 const pkg = require('./package')
-var favicon = require('serve-favicon')
+const favicon = require('serve-favicon')
 
 const app = express()
 
