@@ -1,3 +1,22 @@
 <%- include('../components/header.ejs') %>
-
-<%- include('../components/footer.ejs') %>
+  <div class="container">
+    <div class="row justify-content-center my-5 mx-0">
+      <div class="col-10  col-sm-8 col-md-6  col-lg-5 ">
+        <div class="alert alert-info  m-0 rounded-0 bg-info text-center text-light" role="alert">
+          用户登录
+        </div>
+        <form method="post" action="/signin" class="p-3 border-left border-right border-bottom">
+          <div class="form-group">
+            <label for="account">账号</label>
+            <input type="text" class="form-control" id="account" placeholder="Enter your account" required>
+          </div>
+          <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter your password"  required>
+          </div>
+          <button class="btn btn-info btn-block  w-50 m-auto" type="submit">登录</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <%- include('../components/footer.ejs') %>

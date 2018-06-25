@@ -7,8 +7,8 @@ router.post('/', checkLogin, function (req, res, next) {
   res.send('leave a message')
 })
 
-//GET /comments/:commentId/remove remove a message
-router.get(':commentId/remove', checkLogin, function(req,res,next){
+//  GET /comments/:commentId/remove remove a message
+router.get(':commentId/remove', checkLogin, function (req, res, next) {
   res.send('remove a message')
 })
 

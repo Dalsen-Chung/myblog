@@ -8,7 +8,7 @@ router.get('/', checkNotLogin, function (req, res, next) {
 })
 
 //  POST  /signin user signin
-router.post('/', checkNotLogin, function (req,res,next) {
+router.post('/', checkNotLogin, function (req, res, next) {
   res.send('user signin')
 })
 

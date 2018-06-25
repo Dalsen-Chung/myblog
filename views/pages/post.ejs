@@ -1,23 +1,16 @@
 <%- include('../components/header.ejs') %>
-  <div style="width:500px;height:500px">
-    123
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <%- include('../components/slideshow.ejs') %>
+        <%- include('../components/postslist.ejs') %>
+      </div>
+      <div class="col-lg-4">
+        <%- include('../components/rank.ejs') %>
+        <%- include('../components/hottags.ejs') %>
+        <%- include('../components/about.ejs') %>
+        <%- include('../components/blogroll.ejs') %>
+      </div>
+    </div>
   </div>
-  <div style="width:500px;height:500px">
-  123
-</div>
-<div style="width:500px;height:500px">
-123
-</div>
-<div style="width:500px;height:500px">
-123
-</div>
-<div style="width:500px;height:500px">
-123
-</div>
-<div style="width:500px;height:500px">
-123
-</div>
-<div style="width:500px;height:500px">
-123
-</div>
 <%- include('../components/footer.ejs') %>

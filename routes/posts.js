@@ -8,6 +8,10 @@ router.get('/', function (req, res, next) {
   res.render('pages/post')
 })
 
+router.get('/resources', function (req, res, next) {
+  res.send('pages/resources')
+})
+
 //  POST  /posts/create  发表一篇文章
 router.post('/create', checkLogin, function (req, res, next) {
   res.send('发表文章')
@@ -22,7 +26,6 @@ router.get('/create', checkLogin, function (req, res, next) {
 router.get('/:postId', function (req, res, next) {
   res.send('单独一篇文章页')
 })
-
 //  GET /posts/:postId/edit 更新一篇文章页
 router.get(':postId/edit', checkLogin, function (req, res, next) {
   res.send('page be use to edit posts')

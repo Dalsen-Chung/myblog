@@ -1,10 +1,8 @@
 const express = require('express')
 const router = express.Router()
-// const checkLogin = require('../middlewares/check').checkLogin
 
-// GET /signout user sign out
 router.get('/', function (req, res, next) {
-  res.send('user sign out')
+  res.send('archive page')
 })
 
 module.exports = router
