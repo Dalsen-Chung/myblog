@@ -9,7 +9,12 @@ router.get('/', checkNotLogin, function (req, res, next) {
 
 //  POST  /signin user signin
 router.post('/', checkNotLogin, function (req, res, next) {
-  res.send('user signin')
+  res.redirect('/signin/admin')
+})
+
+// GET /admin page of admin
+router.get('/admin', checkNotLogin, function (req, res, next) {
+  res.render('admin/index')
 })
 
 module.exports = router
