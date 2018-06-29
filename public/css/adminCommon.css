@@ -1,4 +1,5 @@
 /*header style*/
+
 header {
   position: relative;
   z-index: 200;
@@ -26,7 +27,7 @@ header nav {
   margin-left: 230px;
 }
 
-header nav a:hover{
+header nav a:hover {
   text-decoration: none;
   background-color: #367fa9;
 }
@@ -45,7 +46,8 @@ header nav .sidebar-toggle::before {
 }
 
 /*sidebar style*/
-aside{
+
+aside {
   position: absolute;
   top: 0;
   left: 0;
@@ -69,4 +71,43 @@ aside section {
 .sidebar .user-plane img {
   width: 64px;
   height: 64px;
+}
+
+.sidebar .sidebar-menu {
+  list-style: none;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.sidebar .sidebar-menu .header {
+  text-align: center;
+  color: #4b646f;
+  background-color: #1a2226;
+}
+
+.sidebar .sidebar-menu .fa {
+  width: 20px;
+}
+
+.sidebar .sidebar-menu li a {
+  display: block;
+  padding: 12px 5px 12px 15px;
+  color: #b8c7ce;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: all .3s ease;
+}
+
+.sidebar .sidebar-menu li a:hover {
+  background-color: #1a2226;
+  color: #fafafa;
+  border-left: 3px solid #3c8dbc;
+  outline: none;
+  text-decoration: none;
+}
+
+.sidebar .sidebar-menu>li.active>a {
+  background-color: #1a2226;
+  color: #fafafa;
+  border-left: 3px solid #3c8dbc;
 }
