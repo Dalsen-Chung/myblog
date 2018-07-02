@@ -14,7 +14,7 @@ router.post('/', checkNotLogin, function (req, res, next) {
 
 // GET /admin page of admin
 router.get('/admin', checkNotLogin, function (req, res, next) {
-  res.render('admin/index')
+  res.render('admin/pages/artical')
 })
 
 module.exports = router

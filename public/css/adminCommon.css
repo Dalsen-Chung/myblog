@@ -6,19 +6,29 @@ header {
 }
 
 header .logo {
-  display: block;
-  width: 230px;
   background-color: #367fa9;
   color: #fafafa;
   height: 50px;
   line-height: 50px;
   font-weight: 300;
   overflow: hidden;
-  font-size: 20px;
   text-align: center;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-decoration: none;
   border-bottom: 0 solid transparent;
+  transition: all .3s ease-in-out;
+}
+
+header .logo-lg {
+  display: block;
+  width: 230px;
+  font-size: 20px;
+}
+
+header .logo-mini {
+  display: none;
+  width: 50px;
+  font-size: 15px;
 }
 
 header nav {
@@ -110,4 +120,22 @@ aside section {
   background-color: #1a2226;
   color: #fafafa;
   border-left: 3px solid #3c8dbc;
+}
+
+/* content-warp style */
+
+.content-warp {
+  margin-left: 230px;
+  background-color: #ecf0f5;
+  min-height: 100%;
+}
+
+/* toggle class */
+
+.collapse-warp header .logo-lg {
+  display: none;
+}
+
+.collapse-warp header .logo-mini {
+  display: block;
 }
