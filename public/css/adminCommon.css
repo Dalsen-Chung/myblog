@@ -16,19 +16,12 @@ header .logo {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-decoration: none;
   border-bottom: 0 solid transparent;
-  transition: all .3s ease-in-out;
 }
 
 header .logo-lg {
   display: block;
   width: 230px;
   font-size: 20px;
-}
-
-header .logo-mini {
-  display: none;
-  width: 50px;
-  font-size: 15px;
 }
 
 header nav {
@@ -67,10 +60,6 @@ aside {
   min-height: 100%;
   width: 230px;
   z-index: 100;
-  transition: transform .5s ease-in-out, width .5s ease-in-out;
-  -webkit-transition: -webkit-transform .5s ease-in-out, width .5s ease-in-out;
-  -moz-transition: -moz-transform .5s ease-in-out, width .5s ease-in-out;
-  -o-transition: -o-transform .5s ease-in-out, width .5s ease-in-out;
 }
 
 aside section {
@@ -105,7 +94,6 @@ aside section {
   color: #b8c7ce;
   text-decoration: none;
   border-left: 3px solid transparent;
-  transition: all .3s ease;
 }
 
 .sidebar .sidebar-menu li a:hover {
@@ -114,6 +102,13 @@ aside section {
   border-left: 3px solid #3c8dbc;
   outline: none;
   text-decoration: none;
+}
+
+/* active*/
+.sidebar .sidebar-menu li.active a {
+  background-color: #1a2226;
+  color: #fafafa;
+  border-left: 3px solid #3c8dbc;
 }
 
 .sidebar .sidebar-menu>li.active>a {
@@ -130,12 +125,44 @@ aside section {
   min-height: 100%;
 }
 
+/* transition */
+header nav,.logo-lg,aside,.user-plane,.user-plane img,.sidebar-menu .header,.content-warp, .sidebar-menu li a {
+  transition: transform .5s ease-in-out, all .5s ease-in-out;
+  -webkit-transition: -webkit-transform .5s ease-in-out, all .5s ease-in-out;
+  -moz-transition: -moz-transform .5s ease-in-out, all .5s ease-in-out;
+  -o-transition: -o-transform .5s ease-in-out, all .5s ease-in-out;
+}
+
+
 /* toggle class */
 
 .collapse-warp header .logo-lg {
+  width: 50px;
+  padding: 0 !important;
+}
+
+.collapse-warp aside {
+  width: 50px;
+}
+
+.collapse-warp .user-plane {
+  margin-top: 10px;
+  padding: 0 !important;
+}
+
+.collapse-warp .user-plane img{
+  width: 35px;
+  height: 40px;
+}
+
+.collapse-warp .user-plane p, .collapse-warp .sidebar-menu .header{
   display: none;
 }
 
-.collapse-warp header .logo-mini {
-  display: block;
+.collapse-warp header nav{
+  margin-left: 50px;
+}
+
+.collapse-warp .content-warp {
+  margin-left: 50px;
 }
