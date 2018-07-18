@@ -9,4 +9,5 @@ module.exports = function (app) {
   app.use('/archive', require('./archive'))
   app.use('/comments', require('./comments'))
   app.use('/slideshow', require('./slideshow'))
+  app.use('/admin', require('./admin'))
 }

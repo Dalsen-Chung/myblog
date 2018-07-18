@@ -94,6 +94,10 @@ aside section {
   color: #b8c7ce;
   text-decoration: none;
   border-left: 3px solid transparent;
+  transition: transform .3s ease-in-out, all .3s ease-in-out;
+  -webkit-transition: -webkit-transform .3s ease-in-out, all .3s ease-in-out;
+  -moz-transition: -moz-transform .3s ease-in-out, all .3s ease-in-out;
+  -o-transition: -o-transform .3s ease-in-out, all .3s ease-in-out;
 }
 
 .sidebar .sidebar-menu li a:hover {
@@ -115,6 +119,7 @@ aside section {
   background-color: #1a2226;
   color: #fafafa;
   border-left: 3px solid #3c8dbc;
+  padding-left: 25px;
 }
 
 /* content-warp style */
@@ -126,7 +131,7 @@ aside section {
 }
 
 /* transition */
-header nav,.logo-lg,aside,.user-plane,.user-plane img,.sidebar-menu .header,.content-warp, .sidebar-menu li a {
+header nav,.logo-lg,aside,.user-plane,.user-plane img,.sidebar-menu .header,.content-warp{
   transition: transform .5s ease-in-out, all .5s ease-in-out;
   -webkit-transition: -webkit-transform .5s ease-in-out, all .5s ease-in-out;
   -moz-transition: -moz-transform .5s ease-in-out, all .5s ease-in-out;
