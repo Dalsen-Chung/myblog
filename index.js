@@ -39,6 +39,12 @@ app.use(session({
 // flash中间件,用来显示通知
 app.use(flash())
 
+// 处理表单提交的中间件
+app.use(require('express-formidable')({
+  uploadDir: path.join(__dirname, 'public/img/upload'), // 上传文件目录
+  keepExtensions: true
+}))
+
 // router
 routes(app)
 

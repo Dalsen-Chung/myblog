@@ -7,4 +7,8 @@ router.get('/', checkNotLogin, function (req, res, next) {
   res.render('admin/pages/account')
 })
 
+router.post('/regist', checkNotLogin, function (req, res, next) {
+  console.log('aaa')
+})
+
 module.exports = router
