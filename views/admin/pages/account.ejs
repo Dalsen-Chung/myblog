@@ -13,17 +13,17 @@
     <form class="w-25 mx-auto py-4 small" method="post" action="/admin/regist">
       <div class="form-group">
         <label for="username">昵称</label>
-        <input type="text" class="form-control" id="username" aria-describedby="nameHelp" placeholder="Enter name" required>
+        <input type="text" class="form-control" id="username"  name="name" aria-describedby="nameHelp" placeholder="Enter name" required>
         <small id="nameHelp" class="form-text text-muted">发布文章时显示的作者昵称</small>
       </div>
       <div class="form-group">
         <label for="useraccount">账号</label>
-        <input type="text" class="form-control" id="useraccount" aria-describedby="accountHelp" placeholder="Account" required>
+        <input type="text" class="form-control" id="useraccount" name="account" aria-describedby="accountHelp" placeholder="Account" required>
         <small id="accountHelp" class="form-text text-muted">后台登录账号</small>
       </div>
       <div class="form-group">
         <label for="userpassword">密码</label>
-        <input type="password" class="form-control" id="userpassword"  placeholder="Password" required>
+        <input type="password" class="form-control" id="userpassword"  name="password" placeholder="Password" required>
       </div>
       <button type="submit" class="btn btn-info  btn-block">注册</button>
     </form>
