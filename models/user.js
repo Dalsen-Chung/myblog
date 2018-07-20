@@ -9,7 +9,7 @@ module.exports = {
   getUserByAccount: (account) => {
     return User
       .findOne({account: account})
-      .addCreateAt()
+      .addCreatedAt()
       .exec()
   }
 }

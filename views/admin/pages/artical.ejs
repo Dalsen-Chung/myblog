@@ -2,6 +2,46 @@
 <%- include('../components/navbar.ejs') %>
 <%- include('../components/sidebar.ejs') %>
 <div class="content-warp">
-  <h1>文章</h1>
+  <div class="manage-artical">
+    <nav aria-label="breadcrumb" class="pt-5">
+      <ol class="breadcrumb small bg-dark text-light  w-25 justify-content-center  ml-5 mb-0">
+        <li class="breadcrumb-item">后台</li>
+        <li class="breadcrumb-item">文章</li>
+        <li class="breadcrumb-item">文章管理</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="create-artical">
+    <nav aria-label="breadcrumb" class="pt-5">
+      <ol class="breadcrumb small bg-dark text-light  w-25 justify-content-center  ml-5 mb-0">
+        <li class="breadcrumb-item">后台</li>
+        <li class="breadcrumb-item">文章</li>
+        <li class="breadcrumb-item">文章发布</li>
+      </ol>
+    </nav>
+    <form class="w-50 mx-auto py-4 small" method="post" action="/posts/create">
+      <div class="form-group">
+        <label for="title">标题</label>
+        <input type="text" class="form-control" id="title"  name="title" placeholder="Enter title" required>
+      </div>
+      <div class="form-group">
+        <label for="digest">摘要</label>
+        <textarea class="form-control" id="digest" name="digest" rows="4" placeholder="Enter digest with Markdown"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="content">正文内容</label>
+        <textarea class="form-control" id="content" name="content" rows="30" placeholder="Enter content with Markdown"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="tags">标签</label>
+        <input type="text" class="form-control" id="tags"  name="tags" placeholder="逗号分割输入文章所属标签" required>
+      </div>
+      <div class="form-group">
+        <label for="thumbnail">文章缩略图</label>
+        <input type="file" class="form-control-file" id="thumbnail" accept="image/*">
+      </div>
+      <button type="submit" class="btn btn-info  btn-block w-50 m-auto">发布</button>
+    </form>
+  </div>
 </div>
 <%- include('../components/footer.ejs') %>

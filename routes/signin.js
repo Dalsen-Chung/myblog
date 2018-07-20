@@ -1,16 +1,16 @@
 const express = require('express')
 const router = express.Router()
-const checkNotLogin = require('../middlewares/check').checkNotLogin
+const checkLogin = require('../middlewares/check').checkLogin
 const sha1 = require('sha1')
 const UserModel = require('../models/user')
 
 //  GET /signin page of signin
-router.get('/', checkNotLogin, function (req, res, next) {
+router.get('/', checkLogin, function (req, res, next) {
   res.render('pages/login')
 })
 
 //  POST  /signin user signin
-router.post('/', checkNotLogin, function (req, res, next) {
+router.post('/', function (req, res, next) {
   const account = req.fields.account
   const password = req.fields.password
 
