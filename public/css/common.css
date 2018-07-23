@@ -3,7 +3,11 @@ body {
   background-attachment: fixed;
 }
 
-.card {
+.posts {  /*文章列表样式*/
+  column-count: 2;
+}
+
+.posts .card {
   transition: all ease  0.5s;
   -moz-transition: all ease  0.5s;
   /* Firefox 4 */
@@ -13,8 +17,22 @@ body {
   cursor: pointer;
 }
 
-.card:hover {
+.posts .card:hover {
   background-color: beige;
   box-shadow: silver 10px 10px 15px;
   transform: translateY(-10px);
+}
+
+.posts .card .digest {
+  text-indent: 14px;
+}
+
+.post {  /*单篇文章样式*/
+  /* border-color: rgba(0,0,0,.125); */
+}
+
+@media screen and (max-width: 767.98px) {
+  .posts {
+    column-count: 1;
+  }
 }
