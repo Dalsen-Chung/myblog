@@ -2,15 +2,39 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8">
-        <div class="post my-5 bg-white border rounded">
+        <div class="post my-5 border rounded p-4">
           <header>
-
+            <h3 class="font-weight-bold text-center"><%= post.title %></h3>
+            <p class="text-muted text-center">
+              <small>
+                <i class="fa fa-calendar" aria-hidden="true"></i> <%= post.time %>
+              </small>
+              <small class="ml-4">
+                <i class="fa fa-user-circle" aria-hidden="true"></i> <%= post.author %>
+              </small>
+            </p>
+            <hr>
           </header>
           <div class="postContent">
-            123
+            <span class="badge badge-info mb-2 p-2">摘要</span>
+            <p class="postContent-digest text-muted font-weight-bold">
+              <%= post.digest %>
+            </p>
+            <span class="badge badge-primary mb-2 p-2">正文</span>
+            <%- post.content %>
           </div>
+          <hr>
           <footer>
-
+            <div class="row">
+              <div class="col-md-10">
+                <% post.tags.split(',').forEach(function(tag){ %>
+                <span class="badge badge-pill badge-success">#<%= tag %></span>
+                <% }) %>
+              </div>
+              <div class="col-md-2 text-right text-muted small">
+                <i class="fa fa-eye" aria-hidden="true"></i> <%= post.pv %>
+              </div>
+            </div>
           </footer>
         </div>
       </div>

@@ -26,7 +26,7 @@ router.post('/create', checkNotLogin, function (req, res, next) {
   const title = req.fields.title
   const digest = req.fields.digest
   const content = req.fields.content
-  const time = moment().format('YYYY-MM-DD')
+  const time = moment().format('YYYY-MM-DD HH:MM')
   const tags = req.fields.tags
   const img = req.files.thumbnail.path.split(path.sep).pop()
 
@@ -77,8 +77,19 @@ router.get('/create', checkNotLogin, function (req, res, next) {
 
 //  GET /posts/:postId  单独一篇文章页
 router.get('/:postId', function (req, res, next) {
-  res.render('pages/post-content')
+  const postId = req.params.postId
+  Promise.all([
+    PostModel.getPostById(postId), // 获取指定文章
+    PostModel.incPv(postId) // pv加1
+  ]).then((result) => {
+    const post = result[0]
+    if (!post) {
+      throw new Error('该文章不存在')
+    }
+    res.render('pages/post-content', {post: post})
+  }).catch(next)
 })
+
 //  GET /posts/:postId/edit 更新一篇文章页
 router.get(':postId/edit', checkNotLogin, function (req, res, next) {
   res.send('page be use to edit posts')

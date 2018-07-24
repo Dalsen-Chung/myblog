@@ -23,7 +23,7 @@ module.exports = {
     return Post.create(post).exec()
   },
 
-  // 通过文章id获取一篇文章
+  // 通过文章id获取一篇文章(markdown转为html)
   getPostById: (postId) => {
     return Post
       .findOne({_id: postId})
@@ -51,7 +51,25 @@ module.exports = {
   // 通过文章id给pv加1
   incPv: (postId) => {
     return Post
-      .update({id: postId}, {$inc: {pv: 1}})
+      .update({_id: postId}, {$inc: {pv: 1}})
       .exec()
+  },
+
+  // 通过文章id获取文章(未转换markdown,用于文章修改)
+  getRawPostById: (postId) => {
+    return Post
+      .findOne({_id: postId})
+      .populate({ path: 'author', model: 'User' })
+      .exec()
+  },
+
+  // 通过文章id更新一篇文章
+  updatePostById: (postId, data) => {
+    return Post.update({_id: postId}, {$set: data}).exec()
+  },
+
+  // 通过文章id删除一篇文章
+  deletePostById: (postId) => {
+    return Post.delete({_id: postId}).exec()
   }
 }

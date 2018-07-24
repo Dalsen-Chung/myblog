@@ -5,7 +5,10 @@
       <h6 class="card-title font-weight-bold"><%= post.title %></h6>
       <p class="card-text digest"><small class="text-secondary"><%= post.digest %></small></p>
       <p class="card-text text-right mb-0"><small class="text-muted">发布于：<%= post.time %></small></p>
-      <p class="card-text text-right"><small class="text-muted">author：<%= post.author %></small></p>
+      <p class="card-text text-right mb-0"><small class="text-muted">author：<%= post.author %></small></p>
+      <p class="card-text text-right">
+        <small class="text-muted"><i class="fa fa-eye" aria-hidden="true"></i> <%= post.pv %></small>
+      </p>
       <p class="card-text">
         <% post.tags.split(',').forEach(function(tag){ %>
           <span class="badge badge-pill badge-success">#<%= tag %></span>
