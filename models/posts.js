@@ -33,7 +33,7 @@ module.exports = {
       .exec()
   },
 
-  // 按创建时间降序获取所有用户文章或某个特定用户的所有文章
+  // 按创建时间降序获取所有用户文章或某个特定用户的所有文章(markdown转html)
   getPosts: (author) => {
     const query = {}
     if (author) {
@@ -48,6 +48,15 @@ module.exports = {
       .exec()
   },
 
+  // 按创建时间降序获取所有用户文章(未转HTML)
+  getRawPosts: () => {
+    return Post
+      .find()
+      .populate({path: 'author', model: 'User'})
+      .sort({_id: -1})
+      .addCreatedAt()
+      .exec()
+  },
   // 通过文章id给pv加1
   incPv: (postId) => {
     return Post

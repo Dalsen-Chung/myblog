@@ -3,10 +3,20 @@ const sha1 = require('sha1')
 const router = express.Router()
 const checkNotLogin = require('../middlewares/check').checkNotLogin
 const UserModel = require('../models/user')
+const PostModel = require('../models/posts')
 
-// GET /admin page of admin
+// GET /admin page of account
 router.get('/account', checkNotLogin, function (req, res, next) {
   res.render('admin/pages/account')
+})
+
+// GET /admin page of artical
+router.get('/artical', checkNotLogin, function (req, res, next) {
+  PostModel.getRawPosts().then((posts) => {
+    res.render('admin/pages/artical', {
+      posts: posts
+    })
+  })
 })
 
 // POST /regist 后台用户注册,注册后可发布文章
