@@ -90,18 +90,19 @@ router.get('/:postId', function (req, res, next) {
   }).catch(next)
 })
 
-//  GET /posts/:postId/edit 更新一篇文章页
-router.get(':postId/edit', checkNotLogin, function (req, res, next) {
-  res.send('page be use to edit posts')
+//  GET /posts/edit/:postId 更新一篇文章页
+router.get('/edit/:postId', checkNotLogin, function (req, res, next) {
+  const postId = req.params.postId
+  res.send('page be use to edit posts: ' + postId)
 })
 
-// POST /posts/:postId/edit update a post
-router.post(':postId/edit', checkNotLogin, function (req, res, next) {
+// POST /posts/edit/:postId update a post
+router.post('/edit/:postId', checkNotLogin, function (req, res, next) {
   res.send('update a post')
 })
 
-//  GET /posts/:postId/remove remove a post
-router.get(':postId/remove', checkNotLogin, function (req, res, next) {
+//  GET /posts/remove/:postId remove a post
+router.get('/remove/:postId', checkNotLogin, function (req, res, next) {
   res.send('remove a post')
 })
 

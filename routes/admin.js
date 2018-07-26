@@ -7,14 +7,17 @@ const PostModel = require('../models/posts')
 
 // GET /admin page of account
 router.get('/account', checkNotLogin, function (req, res, next) {
-  res.render('admin/pages/account')
+  res.render('admin/pages/account', {
+    active: 'account'
+  })
 })
 
 // GET /admin page of artical
 router.get('/artical', checkNotLogin, function (req, res, next) {
   PostModel.getRawPosts().then((posts) => {
     res.render('admin/pages/artical', {
-      posts: posts
+      posts: posts,
+      active: 'artical'
     })
   })
 })

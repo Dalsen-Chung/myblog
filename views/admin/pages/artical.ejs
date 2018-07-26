@@ -1,47 +1,80 @@
 <%- include('../components/header.ejs') %>
-<%- include('../components/navbar.ejs') %>
-<%- include('../components/sidebar.ejs') %>
-<div class="content-warp">
-  <div class="manage-artical">
-    <nav aria-label="breadcrumb" class="pt-5">
-      <ol class="breadcrumb small bg-dark text-light  w-25 justify-content-center  ml-5 mb-0">
-        <li class="breadcrumb-item">后台</li>
-        <li class="breadcrumb-item">文章</li>
-        <li class="breadcrumb-item">文章管理</li>
-      </ol>
-    </nav>
-  </div>
-  <div class="create-artical">
-    <nav aria-label="breadcrumb" class="pt-5">
-      <ol class="breadcrumb small bg-dark text-light  w-25 justify-content-center  ml-5 mb-0">
-        <li class="breadcrumb-item">后台</li>
-        <li class="breadcrumb-item">文章</li>
-        <li class="breadcrumb-item">文章发布</li>
-      </ol>
-    </nav>
-    <form class="w-50 mx-auto py-4 small" method="post" enctype="multipart/form-data" action="/posts/create">
-      <div class="form-group">
-        <label for="title">标题</label>
-        <input type="text" class="form-control" id="title"  name="title" placeholder="Enter title" required>
+  <%- include('../components/navbar.ejs') %>
+    <%- include('../components/sidebar.ejs', {active:active}) %>
+      <div class="content-warp">
+        <div class="manage-artical">
+          <nav aria-label="breadcrumb" class="pt-5">
+            <ol class="breadcrumb small bg-dark text-light  w-25 justify-content-center  ml-5 mb-0">
+              <li class="breadcrumb-item">后台</li>
+              <li class="breadcrumb-item">文章</li>
+              <li class="breadcrumb-item">文章管理</li>
+            </ol>
+          </nav>
+          <div class="table-responsive-lg">
+            <table class="table table-hover w-75 mx-auto mt-5 small">
+              <thead>
+                <tr class="bg-info text-light">
+                  <th scope="col">#</th>
+                  <th scope="col">标题</th>
+                  <th scope="col">作者</th>
+                  <th scope="col">发布时间</th>
+                  <th scope="col">阅读量</th>
+                  <th scope="col" class="text-center">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% posts.forEach((post, index) =>{ %>
+                  <tr>
+                    <th scope="row"><%= index+1 %></th>
+                    <td><%= post.title %></td>
+                    <td><%= post.author %></td>
+                    <td><%= post.time %></td>
+                    <td><%= post.pv %></td>
+                    <td class="text-center small">
+                      <a role="button" aria-pressed="true"  href="/posts/edit/<%= post._id %>" class="btn btn-sm btn-warning">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                      </a>
+                      <a role="button" aria-pressed="true" href="/posts/remove/<%= post._id %>" class="btn btn-sm btn-danger text-light">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                  </tr>
+                <% })  %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="create-artical">
+          <nav aria-label="breadcrumb" class="pt-5">
+            <ol class="breadcrumb small bg-dark text-light  w-25 justify-content-center  ml-5 mb-0">
+              <li class="breadcrumb-item">后台</li>
+              <li class="breadcrumb-item">文章</li>
+              <li class="breadcrumb-item">文章发布</li>
+            </ol>
+          </nav>
+          <form class="w-50 mx-auto py-4 small" method="post" enctype="multipart/form-data" action="/posts/create">
+            <div class="form-group">
+              <label for="title">标题</label>
+              <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" required>
+            </div>
+            <div class="form-group">
+              <label for="digest">摘要</label>
+              <textarea class="form-control" id="digest" name="digest" rows="4" placeholder="Enter digest with Markdown" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="content">正文内容</label>
+              <textarea class="form-control" id="content" name="content" rows="30" placeholder="Enter content with Markdown" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="tags">标签</label>
+              <input type="text" class="form-control" id="tags" name="tags" placeholder="逗号分割输入文章所属标签" required>
+            </div>
+            <div class="form-group">
+              <label for="thumbnail">文章缩略图</label>
+              <input type="file" class="form-control-file" name="thumbnail" id="thumbnail" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn btn-info  btn-block w-50 m-auto">发布</button>
+          </form>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="digest">摘要</label>
-        <textarea class="form-control" id="digest" name="digest" rows="4" placeholder="Enter digest with Markdown" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="content">正文内容</label>
-        <textarea class="form-control" id="content" name="content" rows="30" placeholder="Enter content with Markdown" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="tags">标签</label>
-        <input type="text" class="form-control" id="tags"  name="tags" placeholder="逗号分割输入文章所属标签" required>
-      </div>
-      <div class="form-group">
-        <label for="thumbnail">文章缩略图</label>
-        <input type="file" class="form-control-file" name="thumbnail" id="thumbnail" accept="image/*" required>
-      </div>
-      <button type="submit" class="btn btn-info  btn-block w-50 m-auto">发布</button>
-    </form>
-  </div>
-</div>
-<%- include('../components/footer.ejs') %>
+      <%- include('../components/footer.ejs') %>

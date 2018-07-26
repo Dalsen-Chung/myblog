@@ -21,7 +21,7 @@
           <span>轮播图</span>
         </a>
       </li>
-      <li>
+      <li <%= active==='artical'?'class=active':'' %> >
         <a href="/admin/artical">
           <i class="fa fa-file-text" aria-hidden="true"></i>
           <span>文章</span>
@@ -45,7 +45,7 @@
           <span>友情链接</span>
         </a>
       </li>
-      <li>
+      <li <%= active==='account'?'class=active':'' %>>
         <a href="/admin/account">
           <i class="fa fa-user-circle-o" aria-hidden="true"></i>
           <span>账户</span>

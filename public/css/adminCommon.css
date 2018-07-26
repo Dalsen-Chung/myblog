@@ -152,6 +152,10 @@ aside section {
   font-size: 14px;
 }
 
+.content-warp .manage-artical .table td, .table th {
+  vertical-align: middle;
+}
+
 /* transition */
 header nav,.logo-lg,aside,.user-plane,.user-plane img,.sidebar-menu .header,.content-warp{
   transition: transform .5s ease-in-out, all .5s ease-in-out;
