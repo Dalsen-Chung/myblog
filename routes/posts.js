@@ -99,7 +99,7 @@ router.get('/edit/:postId', checkNotLogin, function (req, res, next) {
       if (!post) {
         throw new Error('该文章不存在')
       }
-      if (author !== post.author) {
+      if (author.toString() !== post.author.toString()) {
         throw new Error('权限不足')
       }
       res.render('admin/pages/editArtical', {
@@ -111,7 +111,51 @@ router.get('/edit/:postId', checkNotLogin, function (req, res, next) {
 
 // POST /posts/edit/:postId update a post
 router.post('/edit/:postId', checkNotLogin, function (req, res, next) {
-  res.send('update a post')
+  const postId = req.params.postId
+  const author = req.session.user.name
+  const title = req.fields.title
+  const digest = req.fields.digest
+  const content = req.fields.content
+  const tags = req.fields.tags
+
+  // 参数校验
+  try {
+    if (!title) {
+      throw new Error('请填写标题')
+    }
+    if (!digest) {
+      throw new Error('请填写摘要')
+    }
+    if (!content) {
+      throw new Error('请填写内容')
+    }
+    if (!tags) {
+      throw new Error('请填写标签')
+    }
+  } catch (e) {
+    req.flash('error', e.message)
+    return res.redirect('back')
+  }
+
+  PostModel.getRawPostById(postId)
+    .then((post) => {
+      if (!post) {
+        throw new Error('文章不存在')
+      }
+      if (author.toString() !== post.author.toString()) {
+        throw new Error('权限不足')
+      }
+      PostModel.updatePostById(postId, {
+        title: title,
+        digest: digest,
+        content: content,
+        tags: tags
+      }).then(() => {
+        req.flash('success', '编辑文章成功')
+        // 编辑成功后跳转到上一页
+        res.redirect(`/posts/${postId}`)
+      }).catch(next)
+    })
 })
 
 //  GET /posts/remove/:postId remove a post
