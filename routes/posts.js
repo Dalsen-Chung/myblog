@@ -93,7 +93,20 @@ router.get('/:postId', function (req, res, next) {
 //  GET /posts/edit/:postId 更新一篇文章页
 router.get('/edit/:postId', checkNotLogin, function (req, res, next) {
   const postId = req.params.postId
-  res.send('page be use to edit posts: ' + postId)
+  const author = req.session.user.name
+  PostModel.getRawPostById(postId)
+    .then((post) => {
+      if (!post) {
+        throw new Error('该文章不存在')
+      }
+      if (author !== post.author) {
+        throw new Error('权限不足')
+      }
+      res.render('admin/pages/editArtical', {
+        active: 'artical',
+        post: post
+      })
+    })
 })
 
 // POST /posts/edit/:postId update a post
