@@ -1,8 +1,9 @@
 const express = require('express')
 const fs = require('fs')
-const path = require('path')
 const router = express.Router()
 const moment = require('moment')
+const multer = require('multer')
+const upload = multer({dest: 'public/img/upload'})
 const PostModel = require('../models/posts')
 
 const checkNotLogin = require('../middlewares/check').checkNotLogin
@@ -21,14 +22,14 @@ router.get('/resources', function (req, res, next) {
 })
 
 //  POST  /posts/create  发表一篇文章
-router.post('/create', checkNotLogin, function (req, res, next) {
+router.post('/create', checkNotLogin, upload.single('thumbnail'), function (req, res, next) {
   const author = req.session.user.name
-  const title = req.fields.title
-  const digest = req.fields.digest
-  const content = req.fields.content
+  const title = req.body.title
+  const digest = req.body.digest
+  const content = req.body.content
   const time = moment().format('YYYY-MM-DD HH:MM')
-  const tags = req.fields.tags
-  const img = req.files.thumbnail.path.split(path.sep).pop()
+  const tags = req.body.tags
+  const img = req.file
 
   // 校验参数
   try {
@@ -44,8 +45,11 @@ router.post('/create', checkNotLogin, function (req, res, next) {
     if (!tags.length) {
       throw new Error('请填写文章标签')
     }
+    if (!img) {
+      throw new Error('缺少缩略图')
+    }
   } catch (e) {
-    fs.unlink(req.files.thumbnail.path)
+    img && fs.unlink(img.path)
     req.flash('error', e.message)
     return res.redirect('/posts/create')
   }
@@ -57,7 +61,7 @@ router.post('/create', checkNotLogin, function (req, res, next) {
     content: content,
     time: time,
     tags: tags,
-    img: img
+    img: img.filename
   }
 
   PostModel.create(post)
@@ -65,7 +69,7 @@ router.post('/create', checkNotLogin, function (req, res, next) {
       // 此post是插入MongoDB后的值，包含_id
       post = result.ops[0]
       req.flash('success', '发表成功')
-      return res.redirect(`/post/${post._id}`)
+      return res.redirect(`/posts/${post._id}`)
     }).catch(next)
 })
 
@@ -112,10 +116,10 @@ router.get('/edit/:postId', checkNotLogin, function (req, res, next) {
 router.post('/edit/:postId', checkNotLogin, function (req, res, next) {
   const postId = req.params.postId
   const author = req.session.user.name
-  const title = req.fields.title
-  const digest = req.fields.digest
-  const content = req.fields.content
-  const tags = req.fields.tags
+  const title = req.body.title
+  const digest = req.body.digest
+  const content = req.body.content
+  const tags = req.body.tags
 
   // 参数校验
   try {

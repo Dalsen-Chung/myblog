@@ -56,7 +56,7 @@ header nav .sidebar-toggle::before {
   content: "\f0c9";
 }
 
-header nav .sidebar-off {
+header nav .sidebarIcon {
   color: #fafafa;
   background-color: transparent;
   padding: 13px 30px;

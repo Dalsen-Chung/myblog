@@ -24,9 +24,9 @@ router.get('/artical', checkNotLogin, function (req, res, next) {
 
 // POST /regist 后台用户注册,注册后可发布文章
 router.post('/regist', checkNotLogin, function (req, res, next) {
-  const name = req.fields.name
-  const account = req.fields.account
-  let password = req.fields.password
+  const name = req.body.name
+  const account = req.body.account
+  let password = req.body.password
 
   // 参数校验
   try {

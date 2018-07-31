@@ -3,6 +3,7 @@ const express = require('express')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const flash = require('connect-flash')
+const bodyParser = require('body-parser')
 const config = require('config-lite')(__dirname)
 const routes = require('./routes')
 const pkg = require('./package')
@@ -40,10 +41,22 @@ app.use(session({
 app.use(flash())
 
 // 处理表单提交的中间件
-app.use(require('express-formidable')({
-  uploadDir: path.join(__dirname, 'public/img/upload'), // 上传文件目录
-  keepExtensions: true
-}))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
+
+// 设置模板全局变量
+app.locals.blog = {
+  title: 'Dalsen-blog',
+  author: 'Dalsen'
+}
+
+// 模板必须变量
+app.use((req, res, next) => {
+  res.locals.user = req.session.user
+  res.locals.success = req.flash('success').toString()
+  res.locals.error = req.flash('error').toString()
+  next()
+})
 
 // router
 routes(app)

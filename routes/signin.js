@@ -11,8 +11,8 @@ router.get('/', checkLogin, function (req, res, next) {
 
 //  POST  /signin user signin
 router.post('/', function (req, res, next) {
-  const account = req.fields.account
-  const password = req.fields.password
+  const account = req.body.account
+  const password = req.body.password
 
   // 校验参数
   try {

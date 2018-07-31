@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/common.css">
-  <title>Dalsen-blog</title>
+  <title><%= blog.title %></title>
 </head>
 
 <body>
@@ -39,7 +39,11 @@
             <a class="nav-link" href="/about">关于</a>
           </li>
         </ul>
-        <a class="btn btn-outline-info my-2 my-sm-0" href="/signin">登录</a>
+        <% if (!user) { %>
+          <a class="btn btn-outline-info my-2 my-sm-0" href="/signin">登录</a>
+        <% } else { %>
+          <a class="btn btn-outline-info my-2 my-sm-0" href="/admin/artical">后台</a>
+        <% } %>
       </div>
     </div>
   </nav>
