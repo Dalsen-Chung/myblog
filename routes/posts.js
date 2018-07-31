@@ -10,14 +10,14 @@ const checkNotLogin = require('../middlewares/check').checkNotLogin
 //  GET /posts 所有用户或者特定用户的文章页
 router.get('/', function (req, res, next) {
   PostModel.getPosts().then((posts) => {
-    res.render('pages/post', {
+    return res.render('pages/post', {
       posts: posts
     })
   }).catch(next)
 })
 
 router.get('/resources', function (req, res, next) {
-  res.send('pages/resources')
+  return res.send('pages/resources')
 })
 
 //  POST  /posts/create  发表一篇文章
@@ -65,14 +65,13 @@ router.post('/create', checkNotLogin, function (req, res, next) {
       // 此post是插入MongoDB后的值，包含_id
       post = result.ops[0]
       req.flash('success', '发表成功')
-      // res.redirect(`/post/${post._id}`)
-      res.send('已发表')
+      return res.redirect(`/post/${post._id}`)
     }).catch(next)
 })
 
 //  GET /posts/create  发表文章页
 router.get('/create', checkNotLogin, function (req, res, next) {
-  res.render('admin/pages/artical')
+  return res.render('admin/pages/artical')
 })
 
 //  GET /posts/:postId  单独一篇文章页
@@ -86,7 +85,7 @@ router.get('/:postId', function (req, res, next) {
     if (!post) {
       throw new Error('该文章不存在')
     }
-    res.render('pages/post-content', {post: post})
+    return res.render('pages/post-content', {post: post})
   }).catch(next)
 })
 
@@ -102,7 +101,7 @@ router.get('/edit/:postId', checkNotLogin, function (req, res, next) {
       if (author.toString() !== post.author.toString()) {
         throw new Error('权限不足')
       }
-      res.render('admin/pages/editArtical', {
+      return res.render('admin/pages/editArtical', {
         active: 'artical',
         post: post
       })
@@ -153,14 +152,30 @@ router.post('/edit/:postId', checkNotLogin, function (req, res, next) {
       }).then(() => {
         req.flash('success', '编辑文章成功')
         // 编辑成功后跳转到上一页
-        res.redirect(`/posts/${postId}`)
+        return res.redirect(`/posts/${postId}`)
       }).catch(next)
     })
 })
 
 //  GET /posts/remove/:postId remove a post
 router.get('/remove/:postId', checkNotLogin, function (req, res, next) {
-  res.send('remove a post')
+  const postId = req.params.postId
+  const author = req.session.user.name
+
+  PostModel.getRawPostById(postId)
+    .then((post) => {
+      if (!post) {
+        throw new Error('文章不存在')
+      }
+      if (author.toString() !== post.author.toString()) {
+        throw new Error('权限不足')
+      }
+      PostModel.deletePostById(postId)
+        .then(() => {
+          req.flash('success', '删除成功')
+          return res.redirect('/admin/artical')
+        })
+    })
 })
 
 module.exports = router

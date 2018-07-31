@@ -79,6 +79,6 @@ module.exports = {
 
   // 通过文章id删除一篇文章
   deletePostById: (postId) => {
-    return Post.delete({_id: postId}).exec()
+    return Post.deleteOne({_id: postId}).exec()
   }
 }
