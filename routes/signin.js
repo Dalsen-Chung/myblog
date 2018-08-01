@@ -38,7 +38,7 @@ router.post('/', function (req, res, next) {
         req.flash('error', '用户名或密码错误')
         return res.redirect('back')
       }
-      req.flash('success', '登录成功')
+      req.flash('adminSuccess', '登录成功')
       // 用户信息写入session
       req.session.user = user
       // 跳转到主页

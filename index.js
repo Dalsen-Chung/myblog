@@ -7,6 +7,8 @@ const bodyParser = require('body-parser')
 const config = require('config-lite')(__dirname)
 const routes = require('./routes')
 const pkg = require('./package')
+const winston = require('winston')
+const expressWinston = require('express-winston')
 const favicon = require('serve-favicon')
 
 const app = express()
@@ -55,11 +57,39 @@ app.use((req, res, next) => {
   res.locals.user = req.session.user
   res.locals.success = req.flash('success').toString()
   res.locals.error = req.flash('error').toString()
+  res.locals.adminSuccess = req.flash('adminSuccess').toString()
+  res.locals.adminError = req.flash('adminError').toString()
   next()
 })
 
+// 正常请求日志
+app.use(expressWinston.logger({
+  transports: [
+    // new (winston.transports.Console)({ // 输出至控制台
+    //   json: true,
+    //   colorize: true
+    // }),
+    new winston.transports.File({
+      filename: 'logs/success.log'
+    })
+  ]
+}))
+
 // router
 routes(app)
+
+// 错误请求日志
+app.use(expressWinston.errorLogger({
+  transports: [
+    new winston.transports.Console({
+      json: true,
+      colorize: true
+    }),
+    new winston.transports.File({
+      filename: 'logs/error.log'
+    })
+  ]
+}))
 
 // listen port and start program
 app.listen(config.port, function () {

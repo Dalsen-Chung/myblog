@@ -50,7 +50,7 @@ router.post('/create', checkNotLogin, upload.single('thumbnail'), function (req,
     }
   } catch (e) {
     img && fs.unlink(img.path)
-    req.flash('error', e.message)
+    req.flash('adminError', e.message)
     return res.redirect('/posts/create')
   }
 
@@ -68,7 +68,7 @@ router.post('/create', checkNotLogin, upload.single('thumbnail'), function (req,
     .then((result) => {
       // 此post是插入MongoDB后的值，包含_id
       post = result.ops[0]
-      req.flash('success', '发表成功')
+      req.flash('adminSuccess', '文章发表成功')
       return res.redirect(`/posts/${post._id}`)
     }).catch(next)
 })
@@ -109,6 +109,8 @@ router.get('/edit/:postId', checkNotLogin, function (req, res, next) {
         active: 'artical',
         post: post
       })
+    }).catch((e) => {
+      req.flash('adminError', e.message)
     })
 })
 
@@ -154,7 +156,7 @@ router.post('/edit/:postId', checkNotLogin, function (req, res, next) {
         content: content,
         tags: tags
       }).then(() => {
-        req.flash('success', '编辑文章成功')
+        req.flash('adminSuccess', '文章编辑成功')
         // 编辑成功后跳转到上一页
         return res.redirect(`/posts/${postId}`)
       }).catch(next)
@@ -176,7 +178,7 @@ router.get('/remove/:postId', checkNotLogin, function (req, res, next) {
       }
       PostModel.deletePostById(postId)
         .then(() => {
-          req.flash('success', '删除成功')
+          req.flash('adminSuccess', '文章删除成功')
           return res.redirect('/admin/artical')
         })
     })

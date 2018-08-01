@@ -40,7 +40,7 @@ router.post('/regist', checkNotLogin, function (req, res, next) {
       throw new Error('密码至少 6 个字符')
     }
   } catch (e) {
-    req.flash('error', e.message)
+    req.flash('adminError', e.message)
     return res.redirect('/admin/account')
   }
 
@@ -64,14 +64,14 @@ router.post('/regist', checkNotLogin, function (req, res, next) {
       delete user.password
       req.session.user = user
       // 写入flash
-      req.flash('success', '注册成功')
+      req.flash('adminSuccess', '账号注册成功')
       // 跳转到账户页面
       res.redirect('/admin/account')
     })
     .catch(function (e) {
       // 用户名被占用则跳回注册页
       if (e.message.match('duplicate key')) {
-        req.flash('error', '用户名已被占用')
+        req.flash('adminError', '用户名已被占用')
         res.redirect('/admin/account')
       }
       next(e)

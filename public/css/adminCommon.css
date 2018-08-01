@@ -63,6 +63,19 @@ header nav .sidebarIcon {
   background-image: none;
 }
 
+/* notification style */
+.admin-notification .alert {
+  width: 200px;
+  position: absolute;
+  top: 80px;
+  right: 50px;
+  z-index: 999;
+}
+
+.admin-notification .alert button {
+  outline: none;
+}
+
 /*sidebar style*/
 
 aside {
