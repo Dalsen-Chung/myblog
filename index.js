@@ -52,7 +52,7 @@ app.locals.blog = {
   author: 'Dalsen'
 }
 
-// 模板必须变量
+// 模板必须变量.
 app.use((req, res, next) => {
   res.locals.user = req.session.user
   res.locals.success = req.flash('success').toString()
