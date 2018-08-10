@@ -11,5 +11,10 @@ module.exports = {
       .findOne({account: account})
       .addCreatedAt()
       .exec()
+  },
+
+  // 获取所有用户信息
+  getAllUsers: () => {
+    return User.find().exec()
   }
 }

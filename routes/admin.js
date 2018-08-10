@@ -7,8 +7,11 @@ const PostModel = require('../models/posts')
 
 // GET /admin page of account
 router.get('/account', checkNotLogin, function (req, res, next) {
-  res.render('admin/pages/account', {
-    active: 'account'
+  UserModel.getAllUsers().then((users) => {
+    res.render('admin/pages/account', {
+      active: 'account',
+      users: users
+    })
   })
 })
 
@@ -33,10 +36,10 @@ router.post('/regist', checkNotLogin, function (req, res, next) {
     if (!(name.length >= 1 && name.length <= 10)) {
       throw new Error('名字请限制在 1-10 个字符')
     }
-    if (!(account.length > 6)) {
+    if (!(account.length >= 6)) {
       throw new Error('账号至少 6 个字符')
     }
-    if (!(password.length > 6)) {
+    if (!(password.length >= 6)) {
       throw new Error('密码至少 6 个字符')
     }
   } catch (e) {

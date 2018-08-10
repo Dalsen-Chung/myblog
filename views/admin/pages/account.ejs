@@ -27,6 +27,8 @@
       </div>
       <button type="submit" class="btn btn-info  btn-block">注册</button>
     </form>
+  </div>
+  <div class="account-manage">
     <nav aria-label="breadcrumb" class="pt-3">
       <ol class="breadcrumb small bg-dark text-light w-25 justify-content-center ml-5 mb-0">
         <li class="breadcrumb-item">后台</li>
@@ -34,6 +36,39 @@
         <li class="breadcrumb-item">账户管理</li>
       </ol>
     </nav>
+    <div class="table-responsive-lg">
+      <table class="table table-hover w-75 mx-auto mt-5 small">
+        <thead>
+          <tr class="bg-info text-light">
+            <th scope="col">#</th>
+            <th scope="col">昵称</th>
+            <th scope="col">账号</th>
+            <th scope="col">密码</th>
+            <th scope="col">文章量</th>
+            <th scope="col" class="text-center">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach((user, index) =>{ %>
+            <tr>
+              <th scope="row"><%= index+1 %></th>
+              <td><%= user.name %></td>
+              <td><%= user.account %></td>
+              <td><%= user.password %></td>
+              <td><%= user.times %></td>
+              <td class="text-center small">
+                <a role="button" aria-pressed="true"  href="/account/edit/<%= user._id %>" class="btn btn-sm btn-warning">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                <a role="button" aria-pressed="true" href="/account/remove/<%= user._id %>" class="btn btn-sm btn-danger text-light">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          <% })  %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 <%- include('../components/footer.ejs') %>

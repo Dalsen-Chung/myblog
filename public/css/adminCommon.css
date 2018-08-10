@@ -165,7 +165,7 @@ aside section {
   font-size: 14px;
 }
 
-.content-warp .manage-artical .table td, .table th {
+.content-warp  .table td,.content-warp .table th {
   vertical-align: middle;
 }
 
