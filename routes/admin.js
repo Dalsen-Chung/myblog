@@ -62,10 +62,10 @@ router.post('/regist', checkNotLogin, function (req, res, next) {
   UserModel.create(user)
     .then(function (result) {
       // 此user是插入MongoDB后的值,包含_id
-      user = result.ops[0]
-      // 删除敏感信息-密码,并将用户信息存入session
-      delete user.password
-      req.session.user = user
+      // user = result.ops[0]
+      // // 删除敏感信息-密码,并将用户信息存入session
+      // delete user.password
+      // req.session.user = user
       // 写入flash
       req.flash('adminSuccess', '账号注册成功')
       // 跳转到账户页面
@@ -79,6 +79,25 @@ router.post('/regist', checkNotLogin, function (req, res, next) {
       }
       next(e)
     })
+})
+
+router.get('/remove/:id', checkNotLogin, function (req, res, next) {
+  const _id = req.params.id
+  const name = req.session.user.name
+  UserModel.getUserById(_id).then((user) => {
+    if (name !== user.name) {
+      throw new Error('无删除他人账号的权限!')
+    } else {
+      UserModel.deleteUserById(_id).then(() => {
+        req.session.user = null
+        req.flash('success', '账号删除成功,请重新登录!')
+        res.redirect('/signin')
+      })
+    }
+  }).catch((e) => {
+    req.flash('adminError', e.message)
+    res.redirect('/admin/account')
+  })
 })
 
 module.exports = router
