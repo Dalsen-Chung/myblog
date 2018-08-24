@@ -5,6 +5,7 @@ const moment = require('moment')
 const multer = require('multer')
 const upload = multer({dest: 'public/img/upload'})
 const PostModel = require('../models/posts')
+const User = require('../models/user')
 
 const checkNotLogin = require('../middlewares/check').checkNotLogin
 
@@ -30,6 +31,7 @@ router.post('/create', checkNotLogin, upload.single('thumbnail'), function (req,
   const time = moment().format('YYYY-MM-DD HH:MM')
   const tags = req.body.tags
   const img = req.file
+  const authorId = req.session.user._id
 
   // 校验参数
   try {
@@ -68,6 +70,7 @@ router.post('/create', checkNotLogin, upload.single('thumbnail'), function (req,
     .then((result) => {
       // 此post是插入MongoDB后的值，包含_id
       post = result.ops[0]
+      User.incAQ(authorId)
       req.flash('adminSuccess', '文章发表成功')
       return res.redirect(`/posts/${post._id}`)
     }).catch(next)

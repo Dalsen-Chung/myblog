@@ -26,5 +26,10 @@ module.exports = {
   // 删除指定id的用户
   deleteUserById: (id) => {
     return User.deleteOne({_id: id}).exec()
+  },
+
+  // 每发表一篇文章,文章量+1  AQ即artical quantity
+  incAQ: (id) => {
+    return User.update({_id: id}, {$inc: {times: 1}}).exec()
   }
 }
