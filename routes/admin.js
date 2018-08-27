@@ -100,4 +100,14 @@ router.get('/remove/:id', checkNotLogin, function (req, res, next) {
   })
 })
 
+router.get('/edit/:id', checkNotLogin, function (req, res, next) {
+  const _id = req.params.id
+  UserModel.getUserById(_id).then((user) => {
+    res.render('admin/pages/editAccount', {
+      user: user,
+      active: 'account'
+    })
+  })
+})
+
 module.exports = router

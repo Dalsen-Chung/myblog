@@ -170,6 +170,7 @@ router.post('/edit/:postId', checkNotLogin, function (req, res, next) {
 router.get('/remove/:postId', checkNotLogin, function (req, res, next) {
   const postId = req.params.postId
   const author = req.session.user.name
+  const authorId = req.session.user._id
 
   PostModel.getRawPostById(postId)
     .then((post) => {
@@ -181,6 +182,7 @@ router.get('/remove/:postId', checkNotLogin, function (req, res, next) {
       }
       PostModel.deletePostById(postId)
         .then(() => {
+          User.decAQ(authorId) // 删除文章后,作者发布量减1
           req.flash('adminSuccess', '文章删除成功')
           return res.redirect('/admin/artical')
         })

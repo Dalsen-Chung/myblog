@@ -31,5 +31,10 @@ module.exports = {
   // 每发表一篇文章,文章量+1  AQ即artical quantity
   incAQ: (id) => {
     return User.update({_id: id}, {$inc: {times: 1}}).exec()
+  },
+
+  // 删除一篇文章,文章量-1 AQ即article quantity
+  decAQ: (id) => {
+    return User.update({_id: id}, {$inc: {times: -1}}).exec()
   }
 }
