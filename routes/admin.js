@@ -75,7 +75,7 @@ router.post('/regist', checkNotLogin, function (req, res, next) {
       // 用户名被占用则跳回注册页
       if (e.message.match('duplicate key')) {
         req.flash('adminError', '用户名已被占用')
-        res.redirect('/admin/account')
+        return res.redirect('/admin/account')
       }
       next(e)
     })
@@ -91,23 +91,63 @@ router.get('/remove/:id', checkNotLogin, function (req, res, next) {
       UserModel.deleteUserById(_id).then(() => {
         req.session.user = null
         req.flash('success', '账号删除成功,请重新登录!')
-        res.redirect('/signin')
+        return res.redirect('/signin')
       })
     }
   }).catch((e) => {
     req.flash('adminError', e.message)
-    res.redirect('/admin/account')
+    return res.redirect('/admin/account')
   })
 })
 
+// 修改账户页面
 router.get('/edit/:id', checkNotLogin, function (req, res, next) {
   const _id = req.params.id
+  const author = req.session.user.name
   UserModel.getUserById(_id).then((user) => {
+    if (!user) {
+      throw new Error('用户不存在')
+    }
+    if (author.toString() !== user.name) {
+      throw new Error('权限不足，无法修改他人账户')
+    }
     res.render('admin/pages/editAccount', {
       user: user,
       active: 'account'
     })
+  }).catch((e) => {
+    req.flash('adminError', e.message)
+    return res.redirect('/admin/account')
   })
 })
 
+// 修改账户密码
+router.post('/edit', checkNotLogin, function (req, res, next) {
+  const name = req.body.name
+  const userId = req.body._id
+  const password = req.body.password
+  const passwordSec = req.body.password_sec
+  try {
+    if (!password) {
+      throw new Error('请输入新密码')
+    }
+    if (!passwordSec) {
+      throw new Error('再次输入新密码不能为空')
+    }
+    if (password !== passwordSec) {
+      throw new Error('两次输入的密码不一致')
+    }
+    if (!name) {
+      throw new Error('请输入要修改的昵称')
+    }
+  } catch (e) {
+    req.flash('adminError', e.message)
+    return res.redirect('back')
+  }
+
+  UserModel.updateUserById(userId, {
+    name: name,
+    password: sha1(password)
+  })
+})
 module.exports = router

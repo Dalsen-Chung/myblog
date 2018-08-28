@@ -36,5 +36,10 @@ module.exports = {
   // 删除一篇文章,文章量-1 AQ即article quantity
   decAQ: (id) => {
     return User.update({_id: id}, {$inc: {times: -1}}).exec()
+  },
+
+  // 通过用户id更新一名用户
+  updateUserById: (id, user) => {
+    return User.update({_id: id}, {$set: user}).exec()
   }
 }

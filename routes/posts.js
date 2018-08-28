@@ -178,7 +178,7 @@ router.get('/remove/:postId', checkNotLogin, function (req, res, next) {
         throw new Error('文章不存在')
       }
       if (author.toString() !== post.author.toString()) {
-        throw new Error('权限不足')
+        throw new Error('权限不足,不可删除他人文章')
       }
       PostModel.deletePostById(postId)
         .then(() => {
@@ -186,6 +186,9 @@ router.get('/remove/:postId', checkNotLogin, function (req, res, next) {
           req.flash('adminSuccess', '文章删除成功')
           return res.redirect('/admin/artical')
         })
+    }).catch((e) => {
+      req.flash('adminError', e.message)
+      return res.redirect('/admin/artical')
     })
 })
 

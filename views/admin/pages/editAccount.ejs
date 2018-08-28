@@ -1,7 +1,39 @@
 <%- include('../components/header.ejs') %>
   <%- include('../components/navbar.ejs') %>
     <%- include('../components/sidebar.ejs', {active:active}) %>
+    <div class="content-warp">
       <div class="edit-account">
-
+        <nav aria-label="breadcrumb" class="pt-5">
+          <ol class="breadcrumb small bg-dark text-light w-25 justify-content-center ml-5 mb-0">
+            <li class="breadcrumb-item">后台</li>
+            <li class="breadcrumb-item">账户</li>
+            <li class="breadcrumb-item">账户修改</li>
+          </ol>
+        </nav>
+        <form class="w-25 mx-auto py-4 small" method="post" action="/admin/edit">
+          <div class="form-group">
+            <label for="username">昵称</label>
+            <input type="text" class="form-control" id="username" value="<%= user.name %>"
+              name="name" aria-describedby="nameHelp" placeholder="Enter name" required>
+            <small id="nameHelp" class="form-text text-muted">发布文章时显示的作者昵称</small>
+          </div>
+          <div class="form-group">
+            <label for="useraccount">账号</label>
+            <input type="text" class="form-control" id="useraccount" value="<%= user.account %>"
+              name="account" aria-describedby="accountHelp" placeholder="Account" required disabled>
+            <small id="accountHelp" class="form-text text-muted">后台登录账号</small>
+          </div>
+          <div class="form-group">
+            <label for="userpassword">新密码</label>
+            <input type="password" class="form-control" id="userpassword"  name="password" placeholder="New Password" required>
+          </div>
+          <div class="form-group">
+            <label for="userpassword_sec">再次输入新密码</label>
+            <input type="password" class="form-control" id="userpassword_sec"  name="password_sec" placeholder="Enter Password again" required>
+          </div>
+            <input type="hidden" name="_id" value="<%= user._id %>">
+          <button type="submit" class="btn btn-info  btn-block mt-4">确定修改</button>
+        </form>
       </div>
+    </div>
 <%- include('../components/footer.ejs') %>

@@ -14,7 +14,6 @@ body {
   -webkit-transition: all ease  0.5s;
   /* Safari 和 Chrome */
   -o-transition: all ease 0.5s;
-  cursor: pointer;
 }
 
 .posts .card:hover {
