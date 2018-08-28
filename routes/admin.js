@@ -126,6 +126,7 @@ router.post('/edit', checkNotLogin, function (req, res, next) {
   const name = req.body.name
   const userId = req.body._id
   const password = req.body.password
+  const account = req.body.account
   const passwordSec = req.body.password_sec
   try {
     if (!password) {
@@ -148,6 +149,17 @@ router.post('/edit', checkNotLogin, function (req, res, next) {
   UserModel.updateUserById(userId, {
     name: name,
     password: sha1(password)
+  }).then(() => {
+    req.session.user = null
+    req.flash('success', `${account}账户的信息修改成功，请重新登录`)
+    return res.redirect('/signin')
+  }).catch(function (e) {
+    // 用户名被占用则跳回原修改页
+    if (e.message.match('duplicate key')) {
+      req.flash('adminError', `昵称${name}已被占用`)
+      return res.redirect('back')
+    }
+    next(e)
   })
 })
 module.exports = router

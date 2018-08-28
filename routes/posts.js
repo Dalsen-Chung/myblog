@@ -114,6 +114,7 @@ router.get('/edit/:postId', checkNotLogin, function (req, res, next) {
       })
     }).catch((e) => {
       req.flash('adminError', e.message)
+      return res.redirect('back')
     })
 })
 

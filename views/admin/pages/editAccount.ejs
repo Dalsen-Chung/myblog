@@ -20,7 +20,7 @@
           <div class="form-group">
             <label for="useraccount">账号</label>
             <input type="text" class="form-control" id="useraccount" value="<%= user.account %>"
-              name="account" aria-describedby="accountHelp" placeholder="Account" required disabled>
+               aria-describedby="accountHelp" placeholder="Account" required disabled>
             <small id="accountHelp" class="form-text text-muted">后台登录账号</small>
           </div>
           <div class="form-group">
@@ -32,6 +32,7 @@
             <input type="password" class="form-control" id="userpassword_sec"  name="password_sec" placeholder="Enter Password again" required>
           </div>
             <input type="hidden" name="_id" value="<%= user._id %>">
+            <input type="hidden" name="account" value="<%= user.account %>">
           <button type="submit" class="btn btn-info  btn-block mt-4">确定修改</button>
         </form>
       </div>
