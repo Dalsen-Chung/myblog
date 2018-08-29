@@ -4,12 +4,14 @@
       <span class="mb-1"><img src="/svg/hotposts.svg" class="d-inline-block align-top mr-2">热门文章</span>
     </div>
   </div>
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h6 class="mb-2 font-weight-bold">css ie6,ie7,ie8 兼容性写法,CSS hack写法</h6>
-      <small class="text-muted font-italic">2018-08-02</small>
-    </div>
-    <small class="text-muted">阅读量：<span class="badge badge-dark badge-pill">5500</span></small>
-    <small class="text-muted ml-5">评论：<span class="badge badge-dark badge-pill">55</span></small>
-  </a>
+  <% hotPosts.forEach(function(hotPost){ %>
+    <a href="/posts/<%= hotPost._id %>" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h6 class="mb-2 font-weight-bold"><%= hotPost.title %></h6>
+        <small class="text-muted font-italic"><%= hotPost.time %></small>
+      </div>
+      <small class="text-muted">阅读量：<span class="badge badge-dark badge-pill"><%= hotPost.pv %></span></small>
+      <small class="text-muted ml-5">作者：<span class="badge badge-dark badge-pill"><%= hotPost.author %></span></small>
+    </a>
+  <% }) %>
 </div>

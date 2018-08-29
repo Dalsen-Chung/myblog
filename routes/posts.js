@@ -6,14 +6,18 @@ const multer = require('multer')
 const upload = multer({dest: 'public/img/upload'})
 const PostModel = require('../models/posts')
 const User = require('../models/user')
+const config = require('config-lite')(__dirname)
 
 const checkNotLogin = require('../middlewares/check').checkNotLogin
 
 //  GET /posts 所有用户或者特定用户的文章页
 router.get('/', function (req, res, next) {
   PostModel.getPosts().then((posts) => {
-    return res.render('pages/post', {
-      posts: posts
+    PostModel.getPostsByPv(config.hotPostsAmount).then((hotPosts) => {
+      return res.render('pages/post', {
+        posts: posts,
+        hotPosts: hotPosts
+      })
     })
   }).catch(next)
 })
@@ -84,16 +88,22 @@ router.get('/create', checkNotLogin, function (req, res, next) {
 //  GET /posts/:postId  单独一篇文章页
 router.get('/:postId', function (req, res, next) {
   const postId = req.params.postId
-  Promise.all([
-    PostModel.getPostById(postId), // 获取指定文章
-    PostModel.incPv(postId) // pv加1
-  ]).then((result) => {
-    const post = result[0]
-    if (!post) {
-      throw new Error('该文章不存在')
-    }
-    return res.render('pages/post-content', {post: post})
-  }).catch(next)
+  PostModel.incPv(postId).then(() => { // pv加1
+    PostModel.getPostById(postId).then((post) => { // 获取指定文章
+      if (!post) {
+        throw new Error('该文章不存在')
+      }
+      PostModel.getPostsByPv(config.hotPostsAmount).then((hotPosts) => { // 获取热门文章
+        return res.render('pages/post-content', {
+          post: post,
+          hotPosts: hotPosts
+        })
+      })
+    }).catch((e) => {
+      req.flash('error', e.message)
+      return res.redirect('/')
+    })
+  })
 })
 
 //  GET /posts/edit/:postId 更新一篇文章页

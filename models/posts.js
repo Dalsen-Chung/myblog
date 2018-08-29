@@ -80,5 +80,10 @@ module.exports = {
   // 通过文章id删除一篇文章
   deletePostById: (postId) => {
     return Post.deleteOne({_id: postId}).exec()
+  },
+
+  // 获取根据阅读量排名的热门文章
+  getPostsByPv: (postNum) => {
+    return Post.find().sort({pv: -1}).limit(postNum).exec()
   }
 }
