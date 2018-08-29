@@ -7,16 +7,21 @@ const upload = multer({dest: 'public/img/upload'})
 const PostModel = require('../models/posts')
 const User = require('../models/user')
 const config = require('config-lite')(__dirname)
+const commom = require('../lib/commom')
 
 const checkNotLogin = require('../middlewares/check').checkNotLogin
 
 //  GET /posts 所有用户或者特定用户的文章页
 router.get('/', function (req, res, next) {
   PostModel.getPosts().then((posts) => {
-    PostModel.getPostsByPv(config.hotPostsAmount).then((hotPosts) => {
-      return res.render('pages/post', {
-        posts: posts,
-        hotPosts: hotPosts
+    PostModel.getPostsByPv(config.hotPostsAmount).then((hotPosts) => { // 获取热门文章
+      PostModel.getAllPostsTags().then((tags) => {
+        let uniqueTags = commom.tagsUnique(tags)
+        return res.render('pages/post', {
+          posts: posts,
+          hotPosts: hotPosts,
+          uniqueTags: uniqueTags
+        })
       })
     })
   }).catch(next)
@@ -94,9 +99,13 @@ router.get('/:postId', function (req, res, next) {
         throw new Error('该文章不存在')
       }
       PostModel.getPostsByPv(config.hotPostsAmount).then((hotPosts) => { // 获取热门文章
-        return res.render('pages/post-content', {
-          post: post,
-          hotPosts: hotPosts
+        PostModel.getAllPostsTags().then((tags) => {
+          let uniqueTags = commom.tagsUnique(tags)
+          return res.render('pages/post-content', {
+            post: post,
+            hotPosts: hotPosts,
+            uniqueTags: uniqueTags
+          })
         })
       })
     }).catch((e) => {
@@ -201,6 +210,11 @@ router.get('/remove/:postId', checkNotLogin, function (req, res, next) {
       req.flash('adminError', e.message)
       return res.redirect('/admin/artical')
     })
+})
+
+router.get('/tags/:type', function (req, res, next) {
+  const type = req.params.type
+  res.send(type)
 })
 
 module.exports = router

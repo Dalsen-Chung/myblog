@@ -6,17 +6,9 @@
   </div>
   <div  class="list-group-item  flex-column align-items-start">
     <div class="d-flex w-100  flex-wrap">
-      <a href="#" class="badge badge-info m-2">Jqury</a>
-      <a href="#" class="badge badge-info m-2">Node.js</a>
-      <a href="#" class="badge badge-info m-2">Javascript</a>
-      <a href="#" class="badge badge-info m-2">InfoInfo</a>
-      <a href="#" class="badge badge-info m-2">Info</a>
-      <a href="#" class="badge badge-info m-2">InfoInfo</a>
-      <a href="#" class="badge badge-info m-2">InfoInfo</a>
-      <a href="#" class="badge badge-info m-2">InfoInfo</a>
-      <a href="#" class="badge badge-info m-2">InfoInfoInfoInfo</a>
-      <a href="#" class="badge badge-info m-2">InfoInfo</a>
-      <a href="#" class="badge badge-info m-2">InfoInfoInfoInfoInfo</a>
+    <% uniqueTags.forEach(function(uniqueTag){ %>
+      <a href="/posts/tags/<%= uniqueTag %>" class="badge badge-info m-2"><%= uniqueTag %></a>
+    <% }) %>
     </div>
   </div>
 </div>

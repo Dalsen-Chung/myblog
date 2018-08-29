@@ -85,5 +85,10 @@ module.exports = {
   // 获取根据阅读量排名的热门文章
   getPostsByPv: (postNum) => {
     return Post.find().sort({pv: -1}).limit(postNum).exec()
+  },
+
+  // 获取所有文章标签
+  getAllPostsTags: () => {
+    return Post.find().select({tags: 1, _id: 0}).exec()
   }
 }
