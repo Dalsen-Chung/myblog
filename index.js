@@ -46,13 +46,13 @@ app.use(flash())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
-// 设置模板全局变量
+// 设置模板全局变量,通常挂载常量信息(如：博客名、作者)
 app.locals.blog = {
   title: 'Dalsen-blog',
   author: 'Dalsen'
 }
 
-// 模板必须变量.
+// 模板必须变量,通常挂载变量信息,即每次请求的值可能都不同的变量,
 app.use((req, res, next) => {
   res.locals.user = req.session.user
   res.locals.success = req.flash('success').toString()

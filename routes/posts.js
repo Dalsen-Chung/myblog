@@ -214,7 +214,9 @@ router.get('/remove/:postId', checkNotLogin, function (req, res, next) {
 
 router.get('/tags/:type', function (req, res, next) {
   const type = req.params.type
-  res.send(type)
+  PostModel.getPostsByTag(type).then((posts) => {
+    res.send(posts)
+  })
 })
 
 module.exports = router

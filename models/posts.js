@@ -90,5 +90,11 @@ module.exports = {
   // 获取所有文章标签
   getAllPostsTags: () => {
     return Post.find().select({tags: 1, _id: 0}).exec()
+  },
+
+  // 根据标签获取带该标签的文章
+  getPostsByTag: (tag) => {
+    let re = new RegExp(tag) // 正则表达的字面量表达方法不能存放变量,只能用对象的方式创建正则表达式
+    return Post.find({tags: re}).exec()
   }
 }
