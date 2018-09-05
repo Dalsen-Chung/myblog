@@ -1,0 +1,23 @@
+<%- include('../components/header.ejs') %>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <%- include('../components/slideshow.ejs') %>
+        <div class="alert alert-info">
+          与热门标签<strong>“<%= tag%>”</strong>有关的文章：
+        </div>
+        <div class="posts mb-4 pb-3">
+          <% posts.forEach(function (post) { %>
+            <%- include('../components/postslist.ejs', {post: post}) %>
+          <% }) %>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <%- include('../components/rank.ejs', {hotPosts: hotPosts}) %>
+        <%- include('../components/hottags.ejs', {uniqueTags: uniqueTags}) %>
+        <%- include('../components/about.ejs') %>
+        <%- include('../components/blogroll.ejs') %>
+      </div>
+    </div>
+  </div>
+<%- include('../components/footer.ejs') %>

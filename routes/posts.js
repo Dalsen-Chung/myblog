@@ -215,7 +215,17 @@ router.get('/remove/:postId', checkNotLogin, function (req, res, next) {
 router.get('/tags/:type', function (req, res, next) {
   const type = req.params.type
   PostModel.getPostsByTag(type).then((posts) => {
-    res.send(posts)
+    PostModel.getPostsByPv(config.hotPostsAmount).then((hotPosts) => { // 获取热门文章
+      PostModel.getAllPostsTags().then((tags) => {
+        let uniqueTags = commom.tagsUnique(tags)
+        return res.render('pages/postByTag', {
+          posts: posts,
+          hotPosts: hotPosts,
+          uniqueTags: uniqueTags,
+          tag: type
+        })
+      })
+    })
   })
 })
 
