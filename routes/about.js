@@ -6,7 +6,9 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/admin', function (req, res, next) {
-  res.send('about page')
+  res.render('admin/pages/about', {
+    active: 'about'
+  })
 })
 
 router.post('/modify', function (req, res, next) {

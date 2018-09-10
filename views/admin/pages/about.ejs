@@ -2,6 +2,36 @@
 <%- include('../components/navbar.ejs') %>
 <%- include('../components/sidebar.ejs') %>
 <div class="content-warp">
-  <h1>关于</h1>
+  <div class="content-about">
+    <nav aria-label="breadcrumb" class="pt-5">
+      <ol class="breadcrumb small bg-dark text-light  w-25 justify-content-center  ml-5 mb-0">
+      <li class="breadcrumb-item">后台</li>
+      <li class="breadcrumb-item">关于</li>
+      </ol>
+    </nav>
+    <form class="w-25 mx-auto py-4 small" method="post" action="/about/modify">
+      <div class="form-group">
+        <label for="nickName">昵称</label>
+        <input type="text" class="form-control" id="nickName"  name="name" aria-describedby="nameHelp" placeholder="Enter name" required>
+      </div>
+      <div class="form-group">
+        <label for="gitAdd">github</label>
+        <input type="text" class="form-control" id="gitAdd"  name="gitadd" aria-describedby="nameHelp" placeholder="Enter gitHub Address" required>
+      </div>
+      <div class="form-group">
+        <label for="introduction">简介</label>
+        <input type="text" class="form-control" id="introduction"  name="introduction" aria-describedby="nameHelp" placeholder="Enter introduction" required>
+      </div>
+      <div class="form-group">
+        <label for="born">出生年月</label>
+        <input type="text" class="form-control" id="born"  name="born" aria-describedby="nameHelp" placeholder="Enter born date" required>
+      </div>
+      <div class="form-group">
+        <label for="ana">语录</label>
+        <input type="text" class="form-control" id="ana"  name="ana" aria-describedby="nameHelp" placeholder="Enter ana" required>
+      </div>
+      <button type="submit" class="btn btn-info  btn-block mt-4">修改</button>
+    </form>
+  </div>
 </div>
 <%- include('../components/footer.ejs') %>
